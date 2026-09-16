@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Our Love Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav container detail-nav">
+    <a class="brand" href="index.html">♡ us</a>
+    <a class="back-link" href="index.html">View site →</a>
+  </nav>
+
+  <main class="admin-page container">
+    <div id="auth-section" class="auth-card">
+      <p class="eyebrow">Private area</p>
+      <h1>Admin</h1>
+      <p>Sign in to add or edit your monthly memories.</p>
+
+      <form id="login-form" class="form">
+        <label>
+          Email
+          <input id="email" type="email" autocomplete="email" required placeholder="you@example.com">
+        </label>
+        <label>
+          Password
+          <input id="password" type="password" autocomplete="current-password" required placeholder="••••••••">
+        </label>
+        <button class="button primary" type="submit">Sign in</button>
+        <p id="login-message" class="form-message"></p>
+      </form>
+    </div>
+
+    <section id="dashboard" class="hidden">
+      <div class="admin-header">
+        <div>
+          <p class="eyebrow">Your private dashboard</p>
+          <h1>Manage memories</h1>
+        </div>
+        <button id="logout-button" class="button ghost">Log out</button>
+      </div>
+
+      <div class="admin-layout">
+        <form id="memory-form" class="panel form">
+          <div class="panel-heading">
+            <h2 id="form-title">Add a month</h2>
+            <button id="cancel-edit" type="button" class="text-button hidden">Cancel edit</button>
+          </div>
+
+          <input id="memory-id" type="hidden">
+
+          <label>
+            Month number
+            <input id="month-number" type="number" min="1" step="1" required placeholder="2">
+          </label>
+
+          <label>
+            Title
+            <input id="title" type="text" required maxlength="80" placeholder="Two months of us">
+          </label>
+
+          <label>
+            Date / little label
+            <input id="date-label" type="text" maxlength="80" placeholder="September 15, 2026">
+          </label>
+
+          <label>
+            Favorite memory
+            <textarea id="memory" rows="7" required maxlength="5000" placeholder="Tell her what made this month special…"></textarea>
+          </label>
+
+          <label>
+            Photo
+            <input id="photo" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+            <span class="input-help">JPG, PNG, WebP or GIF. Max 8 MB.</span>
+          </label>
+
+          <div id="image-preview-wrap" class="image-preview-wrap hidden">
+            <img id="image-preview" alt="Selected photo preview">
+          </div>
+
+          <button class="button primary" type="submit">
+            <span id="save-label">Save month</span>
+          </button>
+          <p id="form-message" class="form-message"></p>
+        </form>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <h2>Saved months</h2>
+            <span id="admin-count" class="count-pill">0</span>
+          </div>
+          <div id="admin-list" class="admin-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

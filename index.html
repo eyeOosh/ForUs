@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="login-heart">♡</div>
+      <p class="eyebrow">Just for us</p>
+      <h1>About You</h1>
+      <p>Enter the password to open our memories.</p>
+
+      <form id="site-login-form" class="form">
+        <label>
+          Email
+          <input id="site-email" type="email" autocomplete="email" required placeholder="Your email">
+        </label>
+        <label>
+          Password
+          <input id="site-password" type="password" autocomplete="current-password" required placeholder="••••••••">
+        </label>
+        <button class="button primary" type="submit">Open our memories ♡</button>
+        <p id="site-login-message" class="form-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="site-content" class="hidden">
+    <div class="hearts" aria-hidden="true"></div>
+
+    <header class="hero">
+      <nav class="nav container">
+        <a class="brand" href="index.html">Sophie & Aayush</a>
+        <div class="nav-actions">
+          <button id="site-logout" class="nav-button">Lock</button>
+          <a class="admin-link" href="admin.html">Admin</a>
+        </div>
+      </nav>
+
+      <div class="hero-content container">
+        <p class="eyebrow">A little corner of the internet,</p>
+        <h1>For Us</h1>
+        <p class="hero-copy">
+          I love you, Sophie.
+        </p>
+        <a class="scroll-button" href="#months">Explore our memories ↓</a>
+      </div>
+    </header>
+
+    <main id="months" class="container main-content">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">You make every day special.</p>
+          <h2>Our months together</h2>
+        </div>
+        <span id="month-count" class="count-pill">Loading…</span>
+      </div>
+
+      <div id="months-grid" class="months-grid" aria-live="polite">
+        <div class="loading-card">Loading our memories… ♡</div>
+      </div>
+
+      <div id="empty-state" class="empty-state hidden">
+        <div class="empty-heart">♡</div>
+        <h3>Our first chapter is waiting.</h3>
+        <p>Use the Admin page to add your first month.</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>Made with love, for my favorite person. ♡</p>
+    </footer>
+  </div>
+
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/index.js"></script>
+</body>
+</html>
