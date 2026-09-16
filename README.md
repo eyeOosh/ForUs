@@ -1,4 +1,4 @@
-# ♡ Our Little Love Story
+# For us
 
 A small private-admin/public-memory website for a long-distance relationship.
 
