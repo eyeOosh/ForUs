@@ -7,3 +7,5 @@ Thumbs.db
 # Environment files, if you add any later
 .env
 .env.*
+
+README.md
