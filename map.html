@@ -79,8 +79,20 @@
       💡 <strong>Tip:</strong> Click anywhere on the map to pin a new memory or dream destination.
     </p>
 
+    <!-- Location Search Bar -->
+<div class="map-search-container" style="margin-bottom: 15px;">
+  <form id="map-search-form" style="display: flex; gap: 10px;">
+    <input id="map-search-input" type="text" placeholder="Type a city, landmark, or address (e.g. Kyoto, Eiffel Tower, Central Park)..." required style="flex: 1;">
+    <button class="button primary" type="submit">Search Location</button>
+  </form>
+  <p id="map-search-message" class="form-message" style="margin-top: 6px;"></p>
+</div>
+
+<!-- Map Element -->
+<div id="map"></div>
+
     <!-- Map Element -->
-    <div id="map"></div>
+    <!-- <div id="map"></div> -->
 
     <!-- Add Pin Modal Form -->
     <section id="add-pin-panel" class="panel hidden" style="margin-top: 25px;">

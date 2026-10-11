@@ -16,6 +16,10 @@ const imageInput = document.querySelector("#pin-image");
 const noteInput = document.querySelector("#pin-note");
 const formMessage = document.querySelector("#pin-form-message");
 
+const searchForm = document.querySelector("#map-search-form");
+const searchInput = document.querySelector("#map-search-input");
+const searchMessage = document.querySelector("#map-search-message");
+
 let map = null;
 let currentMarkers = [];
 let allPinsData = [];
@@ -48,10 +52,10 @@ function initMap() {
   // Initialize Leaflet map centered globally or on default view
   map = L.map("map").setView([25.0, 10.0], 2);
 
-  // Warm, aesthetic map tile styling (CartoDB Voyager)
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+  // Standard OpenStreetMap tile styling (100% free, no API key required)
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
   // Map Click Event -> Open Add Pin Form
@@ -181,3 +185,57 @@ function escapeHtml(value = "") {
 }
 
 function escapeAttr(value = "") { return escapeHtml(value); }
+
+if (searchForm) {
+  searchForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    searchMessage.textContent = "Finding location…";
+    searchMessage.className = "form-message";
+
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+      const results = await res.json();
+
+      if (!results || results.length === 0) {
+        searchMessage.textContent = "Location not found. Try a different place name.";
+        searchMessage.className = "form-message error";
+        return;
+      }
+
+      const topResult = results[0];
+      const lat = parseFloat(topResult.lat);
+      const lng = parseFloat(topResult.lon);
+
+      // Smoothly animate map to the found coordinates
+      map.flyTo([lat, lng], 13, { duration: 1.5 });
+
+      // Pre-fill pin form values
+      latInput.value = lat;
+      lngInput.value = lng;
+      
+      const shortName = topResult.display_name.split(",")[0] || query;
+      locationInput.value = shortName;
+      titleInput.value = `${shortName}`;
+
+      // Place or move the temporary pin marker
+      if (tempMarker) map.removeLayer(tempMarker);
+      tempMarker = L.marker([lat, lng], {
+        icon: createCustomIcon("📍")
+      }).addTo(map);
+
+      // Reveal form
+      addPinPanel.classList.remove("hidden");
+      addPinPanel.scrollIntoView({ behavior: "smooth" });
+
+      searchMessage.textContent = `Found: ${topResult.display_name}`;
+      searchMessage.className = "form-message success";
+    } catch (err) {
+      console.error(err);
+      searchMessage.textContent = "Could not reach location service. Try again in a moment.";
+      searchMessage.className = "form-message error";
+    }
+  });
+}
