@@ -49,7 +49,14 @@ async function checkSession() {
 }
 
 function initMap() {
-  map = L.map("map").setView([25.0, 10.0], 2);
+  map = L.map("map", {
+    minZoom: 3, // Prevents zooming out beyond a single world view
+    maxBounds: [
+      [-90, -180], // Southwest bounds
+      [90, 180]    // Northeast bounds
+    ],
+    maxBoundsViscosity: 1.0 // Bounces the map back if pulled beyond edges
+  }).setView([25.0, 10.0], 3);
 
   // Exact tile URL to use:
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
