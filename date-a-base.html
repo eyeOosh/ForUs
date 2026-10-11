@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date-a-base ♡ Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .dice-banner {
+      background: linear-gradient(135deg, #fff0f3, #fce4e8);
+      border: 1px solid #f2cad3;
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .date-card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    .tag-badge {
+      font-size: 0.74rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    .tag-badge.timeline { background: #fbe3e8; color: #a9415e; }
+    .tag-badge.where { background: #e3f2fd; color: #1565c0; }
+    .tag-badge.cost { background: #e8f5e9; color: #2e7d32; }
+    .month-card.completed-card {
+      opacity: 0.65;
+      background: #fdfbfb;
+      border-style: dashed;
+    }
+    .month-card.completed-card .card-title {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <nav class="nav container detail-nav">
+    <a class="brand" href="index.html">♡ us</a>
+    <div class="nav-actions">
+      <a class="back-link" href="index.html">← Timeline</a>
+      <a class="admin-link" href="map.html">📍 Map</a>
+      <a class="admin-link" href="movies.html">🎬 Movies</a>
+      <a class="admin-link" href="date-a-base.html">💌 Date-a-base</a>
+      <a class="admin-link" href="admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <main class="container main-content" style="padding-top: 20px;">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Our Date Vault</p>
+        <h2>Date-a-base</h2>
+      </div>
+      <button id="toggle-add-btn" class="button primary">+ Add Date Idea</button>
+    </div>
+
+    <!-- Random Date Generator -->
+    <div class="dice-banner" style="margin-top: 25px;">
+      <div>
+        <h3 style="font-family:'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 6px;">Can't decide what to do?</h3>
+        <p style="color: var(--muted); margin: 0; font-size: 0.9rem;">Roll the dice and let the Date-a-base pick an upcoming date idea for you!</p>
+      </div>
+      <button id="roll-dice-btn" class="button primary" style="white-space: nowrap;">🎲 Pick Random Date</button>
+    </div>
+
+    <!-- Surprise Date Output -->
+    <div id="surprise-card" class="panel hidden" style="margin-bottom: 30px; border: 2px solid var(--accent); background: #fff5f7;">
+      <div class="panel-heading">
+        <h3 style="font-family:'Playfair Display', serif; color: var(--accent-dark);">✨ Your Selected Date Night:</h3>
+        <button id="close-surprise-btn" class="text-button">Close ✕</button>
+      </div>
+      <div id="surprise-content"></div>
+    </div>
+
+    <!-- Add Date Form Panel -->
+    <section id="add-date-panel" class="panel hidden" style="margin-bottom: 30px;">
+      <div class="panel-heading">
+        <h2>Add Date Idea</h2>
+        <button id="close-add-btn" class="text-button">Close ✕</button>
+      </div>
+
+      <form id="save-date-form" class="form">
+        <label>
+          Date Idea
+          <input id="date-title" type="text" required placeholder="e.g. Weekend drive to Tahoe, Lake Tahoe picnic, Soho coffee date">
+        </label>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <label>
+            Whose Idea
+            <select id="whose-idea" style="padding: 12px; border-radius: 13px; border: 1px solid #e3d3d8; background: #fffafa;">
+              <option value="Aayush">Aayush</option>
+              <option value="Sophie">Sophie</option>
+            </select>
+          </label>
+          <label>
+            Timeline
+            <select id="date-timeline" style="padding: 12px; border-radius: 13px; border: 1px solid #e3d3d8; background: #fffafa;">
+              <option value="Soon">Soon</option>
+              <option value="This Month">This Month</option>
+              <option value="Next 3 Months">Next 3 Months</option>
+            </select>
+          </label>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+          <label>
+            Where
+            <select id="date-where" style="padding: 12px; border-radius: 13px; border: 1px solid #e3d3d8; background: #fffafa;">
+              <option value="Bay Area">Bay Area</option>
+              <option value="Reno">Reno</option>
+              <option value="Travel">Travel</option>
+            </select>
+          </label>
+          <label>
+            Cost
+            <select id="date-cost" style="padding: 12px; border-radius: 13px; border: 1px solid #e3d3d8; background: #fffafa;">
+              <option value="Free">Free</option>
+              <option value="$">$</option>
+              <option value="$$">$$</option>
+              <option value="$$$">$$$</option>
+            </select>
+          </label>
+          <label>
+            Complete
+            <select id="date-complete" style="padding: 12px; border-radius: 13px; border: 1px solid #e3d3d8; background: #fffafa;">
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          Notes
+          <textarea id="date-notes" rows="3" placeholder="Any links, details, or things to plan..."></textarea>
+        </label>
+
+        <button class="button primary" type="submit">Save Date Idea ♡</button>
+        <p id="date-form-message" class="form-message"></p>
+      </form>
+    </section>
+
+    <!-- Dates Grid -->
+    <div id="dates-grid" class="months-grid">
+      <div class="loading-card">Loading the Date-a-base… ♡</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Every date with you is an adventure. ♡</p>
+  </footer>
+
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/date-a-base.js"></script>
+</body>
+</html>
