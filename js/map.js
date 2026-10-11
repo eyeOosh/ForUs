@@ -49,10 +49,9 @@ async function checkSession() {
 }
 
 function initMap() {
-  // Initialize Leaflet map centered globally or on default view
   map = L.map("map").setView([25.0, 10.0], 2);
 
-  // Standard OpenStreetMap tile styling (100% free, no API key required)
+  // Exact tile URL to use:
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
