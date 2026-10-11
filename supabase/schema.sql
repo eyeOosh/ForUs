@@ -102,3 +102,31 @@ using (
   bucket_id = 'month-photos'
   and (auth.jwt() ->> 'email') = 'YOUR_ADMIN_EMAIL'
 );
+
+create table if not exists public.map_pins (
+  id uuid default gen_random_uuid() primary key,
+  title text not null,
+  location_name text,
+  lat double precision not null,
+  lng double precision not null,
+  pin_type text default 'visited', -- 'visited' or 'wishlist'
+  date_label text,
+  note text,
+  image_url text,
+  created_by text, -- 'Aayush' or 'Sophie'
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+alter table public.map_pins enable row level security;
+
+create policy "Authenticated users can select map_pins"
+  on public.map_pins for select to authenticated using (true);
+
+create policy "Authenticated users can insert map_pins"
+  on public.map_pins for insert to authenticated with check (true);
+
+create policy "Authenticated users can update map_pins"
+  on public.map_pins for update to authenticated using (true);
+
+create policy "Authenticated users can delete map_pins"
+  on public.map_pins for delete to authenticated using (true);
